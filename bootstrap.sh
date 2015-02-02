@@ -3,10 +3,16 @@
 # Install brew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+is_brewed() {
+  test $(brew ls --versions $1 | wc -l) -eq 1
+}
+
 # Install brew formulae
 apps=(brew-cask chruby go git hub ruby-install task)
 for app ($apps); do
-  brew install $app
+  if [ ! is_brewed $app ]; then
+    brew install $app
+  fi
 done
 
 # Install casks
@@ -15,9 +21,16 @@ for app ($cask_apps); do
   brew cask install $app
 done
 
+# Back yo sh*t up
+files=(.vimrc .zshrc .gitconfig)
+for file ($files); do
+  mv $file $file.bak
+done
+
 # Install oh-my-zsh
-rm -rf ~/.oh-my-zsh # Clear out old install
-curl -L http://install.ohmyz.sh | sh
+if [[ -z ~/.oh-my-zsh ]]; then
+  curl -L http://install.ohmyz.sh | sh
+fi
 
 # Bootstrap zsh
 ln -sf ./zshrc ~/.zshrc
