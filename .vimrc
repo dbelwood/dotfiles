@@ -57,6 +57,9 @@ noremap <C-k> <C-w>k
 " Text handling
 noremap <leader>= :Align
 
+" Vim Shell
+noremap <leader>-> :VimShell<CR>
+
 " Reload this file (I know Inception)
 noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vim source reloaded'"<CR>
 
