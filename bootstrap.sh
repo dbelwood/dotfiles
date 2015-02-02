@@ -1,3 +1,5 @@
+#! /usr/bin/env zsh
+
 # Install brew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -6,13 +8,6 @@ apps=(brew-cask chruby go git hub ruby-install task)
 for app ($apps); do
   brew install $app
 done
-
-# Install a system ruby
-ruby-install ruby 2.1.5
-chruby ruby-2.1.5
-
-# Install up
-gem install up
 
 # Install casks
 cask_apps=(dropbox flux google-chrome iterm2 macvim)
@@ -24,13 +19,17 @@ done
 rm -rf ~/.oh-my-zsh # Clear out old install
 curl -L http://install.ohmyz.sh | sh
 
-# Bootstrap home directory
-# zsh
-cp -rf .zsh* ~
+# Bootstrap zsh
+ln -sf ./zshrc ~/.zshrc
+
+source ~/.zshrc
+
+# Ruby installation
+#ruby-install ruby 2.1.5 # Install a system ruby
+chruby ruby-2.1.5 # Set system ruby
+gem install up # Install up
 
 # vim
-cp -rf .vim* ~
-
-source ~/.vimrc
+ln -sf ./vimrc ~/.vimrc
 
 echo "All done!"
