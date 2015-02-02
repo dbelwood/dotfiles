@@ -31,4 +31,6 @@ cp -rf .zsh* ~
 # vim
 cp -rf .vim* ~
 
+source ~/.vimrc
+
 echo "All done!"
