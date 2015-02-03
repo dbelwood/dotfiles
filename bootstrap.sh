@@ -6,7 +6,7 @@ if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
 fi
 
 is_not_brewed() {
-  if [[ -z "$2" ]]; then
+  if [[ -n "$2" ]]; then
     test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 0
   else
     test $(brew ls --versions $1 | wc -l) -eq 0
@@ -30,7 +30,7 @@ for app ($cask_apps); do
 done
 
 # Back yo sh*t up
-files=(.vimrc .zshrc .gitconfig)
+files=(.vimrc .zshrc .gitconfig .vimrc.plugins)
 for file ($files); do
   mv $file $file.bak
 done
@@ -41,10 +41,10 @@ if [[ -z ~/.oh-my-zsh ]]; then
 fi
 
 # Set gitconfig settings
-ln -sf ./gitconfig ~/.gitconfig
+ln -sf ~/.dotfiles/gitconfig ~/.gitconfig
 
 # Bootstrap zsh
-ln -sf ./zshrc ~/.zshrc
+ln -sf ~/.dotfiles/zshrc ~/.zshrc
 
 source ~/.zshrc
 
@@ -54,6 +54,7 @@ chruby ruby-2.1.5 # Set system ruby
 gem install up # Install up
 
 # vim
-ln -sf ./vimrc ~/.vimrc
+ln -sf ~/.dotfiles/vimrc ~/.vimrc
+ln -sf ~/.dotfiles/vimrc.plugins ~/.vimrc.plugins
 
 echo "All done!"
