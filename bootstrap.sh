@@ -7,7 +7,7 @@ fi
 
 is_not_brewed() {
   if [[ -n "$2" ]]; then
-    test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 0
+    test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 1
   else
     test $(brew ls --versions $1 | wc -l) -eq 0
   fi
@@ -61,4 +61,6 @@ gem install up # Install up
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 ln -sf ~/.dotfiles/vimrc.plugins ~/.vimrc.plugins
 
+env zsh
+. ~/.zshrc
 echo "All done!"
