@@ -1,0 +1,8 @@
+# Vim opens files
+o() {
+  if (( $# == 0)); then
+    vim .
+  else
+    vim "$@"
+  fi
+}
