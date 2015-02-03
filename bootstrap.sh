@@ -8,7 +8,7 @@ fi
 is_brewed() {
   if [[ -z "$2" ]]; then
     test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 1
-  elif
+  else
     test $(brew ls --versions $1 | wc -l) -eq 1
   fi
 }
