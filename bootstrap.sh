@@ -6,7 +6,7 @@ if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
 fi
 
 is_brewed() {
-  if [ ($2) ]; then
+  if [[ -z "$2" ]]; then
     test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 1
   elif
     test $(brew ls --versions $1 | wc -l) -eq 1
@@ -24,7 +24,7 @@ done
 # Install casks
 cask_apps=(dropbox flux google-chrome iterm2 macvim)
 for app ($cask_apps); do
-  if [! is_brewed $app true ]; then
+  if [! is_brewed $app 1]; then
     brew cask install $app
   fi
 done
