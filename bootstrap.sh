@@ -32,6 +32,9 @@ if [[ -z ~/.oh-my-zsh ]]; then
   curl -L http://install.ohmyz.sh | sh
 fi
 
+# Set gitconfig settings
+ln -sf ./gitconfig ~/.gitconfig
+
 # Bootstrap zsh
 ln -sf ./zshrc ~/.zshrc
 
