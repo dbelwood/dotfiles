@@ -18,7 +18,7 @@ endfun
 call SetupVAM()
 
 " Load plugins
-call vam#Scripts('./.vimrc.plugins', {'tag_regex':'.*'})
+call vam#Scripts(expand($HOME, 1) . '/.vimrc.plugins', {'tag_regex':'.*'})
 
 " Options
 set autoindent
