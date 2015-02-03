@@ -32,7 +32,11 @@ done
 # Back yo sh*t up
 files=(.vimrc .zshrc .gitconfig .vimrc.plugins)
 for file ($files); do
-  mv $file $file.bak
+  if [[ -h $file ]]; then
+    rm -f $file
+  else
+    mv $file $file.bak
+  fi
 done
 
 # Install oh-my-zsh
