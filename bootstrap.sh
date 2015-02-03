@@ -1,7 +1,9 @@
 #! /usr/bin/env zsh
 
 # Install brew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 is_brewed() {
   if [ ($2) ]; then
