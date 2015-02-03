@@ -32,6 +32,9 @@ done
 # Back yo sh*t up
 files=(.vimrc .zshrc .gitconfig .vimrc.plugins)
 for file ($files); do
+  if [[ ! -e $file ]]; then
+    continue
+  fi 
   if [[ -h $file ]]; then
     rm -f $file
   else
