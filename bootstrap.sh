@@ -4,7 +4,11 @@
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 is_brewed() {
-  test $(brew ls --versions $1 | wc -l) -eq 1
+  if [ ($2) ]; then
+    test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 1
+  elif
+    test $(brew ls --versions $1 | wc -l) -eq 1
+  fi
 }
 
 # Install brew formulae
@@ -18,7 +22,9 @@ done
 # Install casks
 cask_apps=(dropbox flux google-chrome iterm2 macvim)
 for app ($cask_apps); do
-  brew cask install $app
+  if [! is_brewed $app true ]; then
+    brew cask install $app
+  fi
 done
 
 # Back yo sh*t up
