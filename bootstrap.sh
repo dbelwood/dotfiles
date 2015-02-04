@@ -5,19 +5,11 @@ if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-is_not_brewed() {
-  if [[ -n "$2" ]]; then
-    test $(brew cask info $1 | grep 'Not installed' | wc -l) -eq 1
-  else
-    test $(brew ls --versions $1 | wc -l) -eq 0
-  fi
-}
-
 # Install brew formulae
 echo "Installing brew formulas"
 apps=(brew-cask chruby go git hub ruby-install task)
 for app ($apps); do
-  if is_not_brewed $app; then
+  if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
     brew install $app
   fi
 done
@@ -27,7 +19,7 @@ echo "done"
 echo "Installing brew casks"
 cask_apps=(dropbox flux google-chrome iterm2 macvim)
 for app ($cask_apps); do
-  if is_not_brewed $app 1; then
+  if [[ $(brew cask info $app | grep 'Not installed' | wc -l) -eq 1 ]]; then
     brew cask install $app
   fi
 done
@@ -69,12 +61,19 @@ source ~/.zshrc
 echo "done"
 
 # Ruby installation
-local ruby_ver="2.1.5"
-echo "Install chruby and ruby version $ruby_ver"
-ruby-install ruby $ruby_ver # Install a system ruby
+ruby_ver=2.1.5
+if [[ $(chruby | grep $ruby_ver | wc -l) -eq 0 ]]; then
+  echo "Install ruby version $ruby_ver"
+  ruby-install ruby $ruby_ver # Install a system ruby
+fi
+echo "Set system ruby version"
 chruby ruby-$ruby_ver # Set system ruby
-gem install up # Install up
-echo "done"
+
+if [[ $(gem list --local git-up | grep git-up | wc -l) -eq 0 ]]; then
+  echo "Install up"
+  gem install git-up # Install up
+  echo "done"
+fi
 
 # vim
 echo "Link vim configuration"
