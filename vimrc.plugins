@@ -4,3 +4,4 @@
 "github:vim-scripts/Align"
 "github:Shougo/vimproc.vim"
 "github:Shougo/vimshell.vim"
+"github:fatih/vim-go"
