@@ -1,3 +1,4 @@
-export SSH_KEY_PATH="~/.ssh/"
-export GOPATH="~/Code/go"
+export SSH_KEY_PATH=~/.ssh/
+export PROJECT_PATH=~/Code
+export GOPATH=$PROJECT_PATH/go
 export EDITOR=vim
