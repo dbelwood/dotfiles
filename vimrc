@@ -53,6 +53,7 @@ noremap <C-h> <C-w>h
 noremap <C-l> <C-w>l
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
+nnoremap <leader>b :buffers<CR>:buffer<Space>
 
 " Text handling
 noremap <leader>= :Align
