@@ -90,6 +90,17 @@ ln -sf ~/.dotfiles/vimrc ~/.vimrc
 ln -sf ~/.dotfiles/vimrc.plugins ~/.vimrc.plugins
 echo "done"
 
-env zsh
-. ~/.zshrc
+echo "Setup workspace"
+mkdir -p $PROJECT_PATH
+echo "done"
+
+source ~/.zshrc
+
+echo "Setup golang workspace"
+mkdir -p $GOPATH/bin
+mkdir -p $GOPATH/pkg
+mkdir -p $GOPATH/src
+mkdir -p $GOPATH/src/github.com/trunkclub
+mkdir -p $GOPATH/src/github.com/dbelwood
+echo "done"
 echo "All done!"
