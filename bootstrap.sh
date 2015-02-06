@@ -41,6 +41,14 @@ for file ($files); do
 done
 echo "done."
 
+echo "Create local copies"
+touch ~/.dotfiles/zsh_include/aliases.local
+touch ~/.dotfiles/zsh_include/exports.local
+touch ~/.dotfiles/zsh_include/functions.local
+touch ~/.dotfiles/zsh_include/init.local
+touch ~/.dotfiles/zsh_include/paths.local
+echo "done"
+
 # Install oh-my-zsh
 if [[ ! -e ~/.oh-my-zsh ]]; then
   echo "Install Oh My ZSH"
@@ -66,6 +74,7 @@ if [[ $(chruby | grep $ruby_ver | wc -l) -eq 0 ]]; then
   echo "Install ruby version $ruby_ver"
   ruby-install ruby $ruby_ver # Install a system ruby
 fi
+
 echo "Set system ruby version"
 chruby ruby-$ruby_ver # Set system ruby
 

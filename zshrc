@@ -3,6 +3,7 @@ root_dir=~/.dotfiles
 
 # Load paths
 source $root_dir/zsh_include/paths
+source $root_dir/zsh_include/paths.local
 
 # Oh-My-Zsh configuration
 ZSH_THEME="bureau"
@@ -10,6 +11,10 @@ plugins=(chruby brew common-aliases git github jsontools taskwarrior urltools va
 source $ZSH/oh-my-zsh.sh
 
 source $root_dir/zsh_include/exports
+source $root_dir/zsh_include/exports.local
 source $root_dir/zsh_include/aliases
+source $root_dir/zsh_include/aliases.local
 source $root_dir/zsh_include/functions
+source $root_dir/zsh_include/functions.local
 source $root_dir/zsh_include/init
+source $root_dir/zsh_include/init.local
