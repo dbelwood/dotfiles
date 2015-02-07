@@ -10,6 +10,9 @@ ZSH_THEME="bureau"
 plugins=(chruby brew common-aliases git github jsontools taskwarrior urltools vagrant web-search)
 source $ZSH/oh-my-zsh.sh
 
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+
 source $root_dir/zsh_include/exports
 source $root_dir/zsh_include/exports.local
 source $root_dir/zsh_include/aliases
