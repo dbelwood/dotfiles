@@ -1,5 +1,17 @@
+[branch]
+  autosetuprebase = always
+[color]
+  ui = true
+[core]
+  editor = vim
+[git-up "bundler"]
+  check = false
+[help]
+  autocorrect = 1
+[hub]
+  protocol = https
 [push]
-	default = simple
+  default = simple
 [user]
-	name = Dan Belwood
-	email = dan.belwood@gmail.com
+  name = Dan Belwood
+  email = dan.belwood@gmail.com
