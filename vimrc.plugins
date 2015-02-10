@@ -5,3 +5,5 @@
 "github:Shougo/vimproc.vim"
 "github:Shougo/vimshell.vim"
 "github:fatih/vim-go"
+"github:scrooloose/syntastic"
+"github:plasticboy/vim-markdown"

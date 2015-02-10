@@ -1,5 +1,7 @@
 #! /usr/bin/env zsh
 
+DOTFILES_PATH=~/.dotfiles
+
 # Install brew
 if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -7,7 +9,7 @@ fi
 
 # Install brew formulae
 echo "Installing brew formulas"
-apps=(brew-cask chruby go git hub ruby-install task)
+apps=(brew-cask chruby go git hub ruby-install task tmux)
 for app ($apps); do
   if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
     brew install $app
@@ -27,7 +29,7 @@ echo "done"
 
 # Back yo sh*t up
 echo "Backing up rc files"
-files=(.vimrc .zshrc .gitconfig .vimrc.plugins)
+files=(.vimrc .zshrc .gitconfig .vimrc.plugins .tmux.conf)
 for file ($files); do
   if [[ ! -e $file ]]; then
     continue
@@ -42,11 +44,11 @@ done
 echo "done."
 
 echo "Create local copies"
-touch ~/.dotfiles/zsh_include/aliases.local
-touch ~/.dotfiles/zsh_include/exports.local
-touch ~/.dotfiles/zsh_include/functions.local
-touch ~/.dotfiles/zsh_include/init.local
-touch ~/.dotfiles/zsh_include/paths.local
+touch $DOTFILES_PATH/zsh_include/aliases.local
+touch $DOTFILES_PATH/zsh_include/exports.local
+touch $DOTFILES_PATH/zsh_include/functions.local
+touch $DOTFILES_PATH/zsh_include/init.local
+touch $DOTFILES_PATH/zsh_include/paths.local
 echo "done"
 
 # Install oh-my-zsh
@@ -58,12 +60,12 @@ fi
 
 # Set gitconfig settings
 echo "Link git configuration"
-ln -sf ~/.dotfiles/gitconfig ~/.gitconfig
+ln -sf $DOTFILES_PATH/gitconfig ~/.gitconfig
 echo "done"
 
 # Bootstrap zsh
 echo "Link zsh configuration"
-ln -sf ~/.dotfiles/zshrc ~/.zshrc
+ln -sf $DOTFILES_PATH/zshrc ~/.zshrc
 
 source ~/.zshrc
 echo "done"
@@ -86,8 +88,13 @@ fi
 
 # vim
 echo "Link vim configuration"
-ln -sf ~/.dotfiles/vimrc ~/.vimrc
-ln -sf ~/.dotfiles/vimrc.plugins ~/.vimrc.plugins
+ln -sf $DOTFILES_PATH/vimrc ~/.vimrc
+ln -sf $DOTFILES_PATH/vimrc.plugins ~/.vimrc.plugins
+echo "done"
+
+# tmux
+echo "Link tmux configuration"
+ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
 echo "done"
 
 echo "Setup workspace"
