@@ -7,3 +7,4 @@
 "github:fatih/vim-go"
 "github:scrooloose/syntastic"
 "github:plasticboy/vim-markdown"
+"github:raichoo/haskell-vim"
