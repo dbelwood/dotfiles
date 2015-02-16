@@ -9,5 +9,5 @@ o() {
 
 # Open Teamocil session
 code-in() {
-  tmux; teamocil "$@"
+  tmux new 'teamocil "$@"'
 }
