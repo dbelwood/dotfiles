@@ -45,6 +45,9 @@ set smartcase
 set softtabstop=2
 set tabstop=4
 
+" Highlight columns past 80 in a file
+let &colorcolumn=join(range(81,999),",")
+
 " Mappings
 let mapleader = ","
 
