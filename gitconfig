@@ -9,7 +9,7 @@
 [help]
   autocorrect = 1
 [hub]
-  protocol = https
+	protocol = git
 [push]
   default = simple
 [user]
