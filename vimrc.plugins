@@ -9,3 +9,5 @@
 "github:plasticboy/vim-markdown"
 "github:raichoo/haskell-vim"
 "github:stgpetrovic/vim-hackernews"
+"github:suan/vim-instant-markdown"
+"github:tpope/vim-vinegar"
