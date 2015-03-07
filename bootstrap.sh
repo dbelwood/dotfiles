@@ -97,6 +97,16 @@ echo "Link tmux configuration"
 ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
 echo "done"
 
+if [[ $(gem list --local git-up | grep git-up | wc -l) -eq 0 ]]; then
+  echo "Install teamocil"
+  gem install teamocil
+  echo "done"
+fi
+
+echo "Install teamocil layouts"
+cp teamocil_layouts/*.yml ~/.teamocil
+echo "done"
+
 echo "Setup workspace"
 mkdir -p $PROJECT_PATH
 echo "done"
