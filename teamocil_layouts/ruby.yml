@@ -1,0 +1,22 @@
+windows:
+  - name: code
+    root: ~/Code
+    focus: true
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: test
+    root: ~/Code
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: run
+    root: ~/Code
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: tasks
+    root: ~
+    layout: tiled
+    panes:
+      - task list
