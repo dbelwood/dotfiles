@@ -83,5 +83,6 @@ noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo '
 
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.md set spell
+autocmd BufWritePre * :%s/\s\+$//e " Strip whitespace upon save
 
 " Abbreviations
