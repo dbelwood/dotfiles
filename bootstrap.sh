@@ -1,6 +1,16 @@
 #! /usr/bin/env zsh
 
 DOTFILES_PATH=~/.dotfiles
+brews_to_install=brew-cask chruby go git hub ruby-install task tmux
+brew_casks_to_install=dropbox flux google-chrome iterm2 macvim
+
+install_gem() {
+  if [[ $(gem list --local $1 | grep git-up | wc -l) -eq 0 ]]; then
+    echo "Install $1"
+    gem install $1
+    echo "done"
+  fi
+}
 
 # Install brew
 if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
@@ -9,8 +19,7 @@ fi
 
 # Install brew formulae
 echo "Installing brew formulas"
-apps=(brew-cask chruby go git hub ruby-install task tmux)
-for app ($apps); do
+for app ($brews_to_install); do
   if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
     brew install $app
   fi
@@ -19,8 +28,7 @@ echo "done"
 
 # Install casks
 echo "Installing brew casks"
-cask_apps=(dropbox flux google-chrome iterm2 macvim)
-for app ($cask_apps); do
+for app ($brew_casks_to_install); do
   if [[ $(brew cask info $app | grep 'Not installed' | wc -l) -eq 1 ]]; then
     brew cask install $app
   fi
@@ -38,6 +46,7 @@ for file ($files); do
   if [[ -h $file ]]; then
     rm -f $file
   else
+    rm $file.bak
     mv $file $file.bak
   fi
 done
@@ -80,11 +89,7 @@ fi
 echo "Set system ruby version"
 chruby ruby-$ruby_ver # Set system ruby
 
-if [[ $(gem list --local git-up | grep git-up | wc -l) -eq 0 ]]; then
-  echo "Install up"
-  gem install git-up # Install up
-  echo "done"
-fi
+install_gem git-up # Install git-up
 
 # vim
 echo "Link vim configuration"
@@ -95,6 +100,8 @@ echo "done"
 # tmux
 echo "Link tmux configuration"
 ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
+install_gem teamocil #install teamocil
+ln -sf $DOTFILES_PATH/teamocil_layouts ~/.teamocil
 echo "done"
 
 if [[ $(gem list --local git-up | grep git-up | wc -l) -eq 0 ]]; then
