@@ -9,5 +9,29 @@ o() {
 
 # Open Teamocil session
 code-in() {
-  tmux new 'teamocil "$@"'
+  tmux new "teamocil $@"
+}
+
+scratch_pad() {
+  pushd ~/scratch_pad
+  if [[ -z $1 ]]; then
+  fi
+
+  case "$1" in
+    new)
+      new_file=`date +"%Y-%m-%d:%s"`
+      touch ./${new_file}
+      o ./${new_file}
+      ;;
+    last)
+      o ./`ls -tc | head -n 1`
+      ;;
+    list)
+      ls | more
+      ;;
+    *)
+      echo "Usage: $0 [new|last|list]"
+      return 1
+      ;;
+  esac
 }
