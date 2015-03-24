@@ -1,8 +1,21 @@
 #! /usr/bin/env zsh
 
 DOTFILES_PATH=~/.dotfiles
-brews_to_install=brew-cask chruby go git hub ruby-install task tmux
-brew_casks_to_install=dropbox flux google-chrome iterm2 macvim
+brews_to_install=(
+  brew-cask
+  chruby
+  go
+  git
+  hub
+  ruby-install
+  task
+  tmux)
+brew_casks_to_install=(
+  dropbox
+  flux
+  google-chrome
+  iterm2
+  macvim)
 
 install_gem() {
   if [[ $(gem list --local $1 | grep git-up | wc -l) -eq 0 ]]; then
@@ -41,7 +54,7 @@ files=(.vimrc .zshrc .gitconfig .vimrc.plugins .tmux.conf)
 for file ($files); do
   if [[ ! -e $file ]]; then
     continue
-  fi 
+  fi
   echo "Backing up $file"
   if [[ -h $file ]]; then
     rm -f $file
@@ -104,11 +117,7 @@ install_gem teamocil #install teamocil
 ln -sf $DOTFILES_PATH/teamocil_layouts ~/.teamocil
 echo "done"
 
-if [[ $(gem list --local git-up | grep git-up | wc -l) -eq 0 ]]; then
-  echo "Install teamocil"
-  gem install teamocil
-  echo "done"
-fi
+install_gem teamocil # Tmux config
 
 echo "Install teamocil layouts"
 cp teamocil_layouts/*.yml ~/.teamocil
