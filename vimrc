@@ -46,7 +46,9 @@ set softtabstop=2
 set tabstop=4
 
 " Highlight columns past 80 in a file
-let &colorcolumn=join(range(81,999),",")
+" let &colorcolumn=join(range(81,999),",")
+highlight OverLength ctermbg=red ctermfg=white
+match OverLength /\%>80v.\+/
 
 " Mappings
 let mapleader = ","
@@ -86,3 +88,6 @@ autocmd BufRead,BufNewFile *.md set spell
 autocmd BufWritePre * :%s/\s\+$//e " Strip whitespace upon save
 
 " Abbreviations
+
+" Local settings
+source ~/.vimrc.local
