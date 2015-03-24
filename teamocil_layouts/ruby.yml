@@ -20,3 +20,13 @@ windows:
     layout: tiled
     panes:
       - task list
+  - name: twitter
+    root: ~
+    layout: tiled
+    panes:
+      - rainbowstream
+  - name: hackernews
+    root: ~
+    layout: tiled
+    panes:
+      - hnews home
