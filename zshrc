@@ -6,7 +6,7 @@ source $root_dir/zsh_include/paths
 source $root_dir/zsh_include/paths.local
 
 # Oh-My-Zsh configuration
-ZSH_THEME="bureau"
+ZSH_THEME="kolo"
 plugins=(chruby brew common-aliases git github jsontools taskwarrior urltools vagrant web-search)
 source $ZSH/oh-my-zsh.sh
 

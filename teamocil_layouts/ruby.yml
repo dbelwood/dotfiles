@@ -1,3 +1,4 @@
+name: Ruby Dev
 windows:
   - name: code
     root: ~/Code

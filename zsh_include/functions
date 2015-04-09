@@ -9,13 +9,13 @@ o() {
 
 # Open Teamocil session
 code-in() {
-  tmux new "teamocil $@"
+  tmux -u new "teamocil $@"
 }
 
 scratch_pad() {
   pushd ~/scratch_pad
-  if [[ -z $1 ]]; then
-  fi
+  files=`ls -tc`
+  file_count=(${(w)#files})
 
   case "$1" in
     new)
@@ -24,13 +24,19 @@ scratch_pad() {
       o ./${new_file}
       ;;
     last)
-      o ./`ls -tc | head -n 1`
+      o ./${files[$file_count]}
       ;;
     list)
-      ls | more
+      for (( i=1; i<=$file_count; i++ )) do
+        echo "${i} - ${files[(f)i]}"
+      done
+      ;;
+    open)
+      index=$2
+      o ./${files[(f)index]}
       ;;
     *)
-      echo "Usage: $0 [new|last|list]"
+      echo "Usage: $0 [new|last|list|open number]"
       return 1
       ;;
   esac

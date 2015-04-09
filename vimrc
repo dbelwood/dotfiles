@@ -21,6 +21,9 @@ call SetupVAM()
 call vam#Scripts(expand($HOME, 1) . '/.vimrc.plugins', {'tag_regex':'.*'})
 
 " Options
+set t_Co=256
+let g:solarized_termcolors=256
+colorscheme solarized
 set autoindent
 set autoread
 set autowriteall
