@@ -83,6 +83,13 @@ noremap <leader>= :Align
 " Vim Shell
 noremap <leader>-> :VimShell<CR>
 
+" Run rspec
+let g:rspec_command = "!bundle exec rspec {spec}"
+let g:rspec_runner = "os_x_iterm"
+
+map <Leader>u :call RunCurrentSpecFile()<CR>
+map <Leader>U :call RunAllSpecs()<CR>
+
 " Reload this file (I know Inception)
 noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vim source reloaded'"<CR>
 

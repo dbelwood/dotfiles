@@ -12,6 +12,7 @@ code-in() {
   tmux -u new "teamocil $@"
 }
 
+# Scratch Pad functionality
 scratch_pad() {
   pushd ~/scratch_pad
   files=`ls -tc`
@@ -41,3 +42,23 @@ scratch_pad() {
       ;;
   esac
 }
+
+# Log into databases from keychain login info
+start_db_session() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: $0 <host> <username>"
+    return 1
+  fi
+
+  local host=$1
+  local user=$2
+
+  # Get password
+  local password=$(security find-generic-password -s $host -a $user -w)
+
+  local connect_string="postgresql://${user}:${password}@${host}/postgres"
+
+  pgcli $connect_string
+}
+
+# vim: set filetype=sh :

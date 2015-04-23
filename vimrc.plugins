@@ -13,3 +13,4 @@
 "github:tpope/vim-vinegar"
 "github:tfnico/vim-gradle"
 "github:godlygeek/tabular"
+"github:thoughtbot/vim-rspec"
