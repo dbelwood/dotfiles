@@ -23,6 +23,7 @@ call vam#Scripts(expand($HOME, 1) . '/.vimrc.plugins', {'tag_regex':'.*'})
 " Options
 set t_Co=256
 let g:solarized_termcolors=256
+set background=dark
 colorscheme solarized
 set autoindent
 set autoread
@@ -31,6 +32,7 @@ set backspace=2
 set backupcopy=yes
 set clipboard=unnamed                 " Use OS X clipboard
 set directory-=.
+set autochdir                         " Set the directory to the current file's
 set encoding=utf-8
 set expandtab
 set ignorecase
