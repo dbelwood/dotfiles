@@ -1,0 +1,27 @@
+windows:
+  - name: code
+    root: ~/Code
+    focus: true
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: test
+    root: ~/Code
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: run
+    root: ~/Code
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: twitter
+    root: ~
+    layout: tiled
+    panes:
+      - rainbowstream
+  - name: hackernews
+    root: ~
+    layout: tiled
+    panes:
+      - hnews home
