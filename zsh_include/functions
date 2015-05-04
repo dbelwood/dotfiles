@@ -53,10 +53,15 @@ start_db_session() {
   local host=$1
   local user=$2
 
+  local database=postgres
+  if [ $# -eq 3 ]; then
+    database=$3
+  fi
+
   # Get password
   local password=$(security find-generic-password -s $host -a $user -w)
 
-  local connect_string="postgresql://${user}:${password}@${host}/postgres"
+  local connect_string="postgresql://${user}:${password}@${host}/${database}"
 
   pgcli $connect_string
 }
