@@ -66,4 +66,14 @@ start_db_session() {
   pgcli $connect_string
 }
 
+agenda() {
+  local start='7am'
+  local end="$(date -v23H -v59M -v59S -v+4d -j +"%Y-%m-%d 00:00")"
+  while :; do
+    clear &&
+    gcalcli agenda ${start} ${end}
+    sleep 120;
+  done
+}
+
 # vim: set filetype=sh :
