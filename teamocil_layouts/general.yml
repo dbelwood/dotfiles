@@ -1,0 +1,38 @@
+name: Development
+windows:
+  - name: office
+    root: ~
+    focus: true
+    layout: ea83,178x55,0,0{120x55,0,0,1,57x55,121,0,2}
+    panes:
+      - sup
+      - agenda
+  - name: code
+    root: ~/Code
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: run
+    root: ~/Code
+    layout: tiled
+    panes:
+      - ls -alh
+  - name: slack
+    layout: tiled
+    panes:
+      - weechat
+  - name: twitter
+    root: ~
+    layout: tiled
+    panes:
+      - rainbowstream
+  #- name: hackernews
+  #  root: ~
+  #  layout: tiled
+  #  panes:
+  #    - hnews home
+  - name: tasks
+    root: ~
+    layout: tiled
+    panes:
+      - task list
