@@ -5,8 +5,10 @@ brews_to_install=(
   brew-cask
   chruby
   go
+  elixir
   git
   hub
+  leiningen
   ruby-install
   task
   tmux)
@@ -93,7 +95,7 @@ source ~/.zshrc
 echo "done"
 
 # Ruby installation
-ruby_ver=2.1.5
+ruby_ver=2.2.1
 if [[ $(chruby | grep $ruby_ver | wc -l) -eq 0 ]]; then
   echo "Install ruby version $ruby_ver"
   ruby-install ruby $ruby_ver # Install a system ruby
@@ -136,4 +138,12 @@ mkdir -p $GOPATH/src
 mkdir -p $GOPATH/src/github.com/trunkclub
 mkdir -p $GOPATH/src/github.com/dbelwood
 echo "done"
+
+echo "Setup other languages"
+languages=(Clojure Elixir Ruby)
+for language in $languages; do
+  mkdir -p $PROJECT_PATH/$language
+done
+echo "done"
+
 echo "All done!"
