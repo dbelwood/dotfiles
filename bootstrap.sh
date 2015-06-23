@@ -2,7 +2,7 @@
 
 DOTFILES_PATH=~/.dotfiles
 brews_to_install=(
-  brew-cask
+  caskroom/cask/brew-cask
   chruby
   go
   elixir
@@ -17,7 +17,11 @@ brew_casks_to_install=(
   flux
   google-chrome
   iterm2
-  macvim)
+  macvim
+  1password
+  amethyst
+  slack
+  java)
 
 install_gem() {
   if [[ $(gem list --local $1 | grep git-up | wc -l) -eq 0 ]]; then
@@ -34,7 +38,7 @@ fi
 
 # Install brew formulae
 echo "Installing brew formulas"
-for app ($brews_to_install); do
+for app in ${brews_to_install[@]}; do
   if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
     brew install $app
   fi
@@ -43,7 +47,7 @@ echo "done"
 
 # Install casks
 echo "Installing brew casks"
-for app ($brew_casks_to_install); do
+for app in ${brew_casks_to_install[@]}; do
   if [[ $(brew cask info $app | grep 'Not installed' | wc -l) -eq 1 ]]; then
     brew cask install $app
   fi
@@ -53,7 +57,7 @@ echo "done"
 # Back yo sh*t up
 echo "Backing up rc files"
 files=(.vimrc .zshrc .gitconfig .vimrc.plugins .tmux.conf)
-for file ($files); do
+for file in ${files[@]}; do
   if [[ ! -e $file ]]; then
     continue
   fi
@@ -110,6 +114,7 @@ install_gem git-up # Install git-up
 echo "Link vim configuration"
 ln -sf $DOTFILES_PATH/vimrc ~/.vimrc
 ln -sf $DOTFILES_PATH/vimrc.plugins ~/.vimrc.plugins
+touch ~/.vimrc.local
 echo "done"
 
 # tmux
@@ -118,8 +123,6 @@ ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
 install_gem teamocil #install teamocil
 ln -sf $DOTFILES_PATH/teamocil_layouts ~/.teamocil
 echo "done"
-
-install_gem teamocil # Tmux config
 
 echo "Install teamocil layouts"
 cp teamocil_layouts/*.yml ~/.teamocil
@@ -141,7 +144,7 @@ echo "done"
 
 echo "Setup other languages"
 languages=(Clojure Elixir Ruby)
-for language in $languages; do
+for language in ${languages[@]}; do
   mkdir -p $PROJECT_PATH/$language
 done
 echo "done"
