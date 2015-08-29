@@ -11,7 +11,9 @@ brews_to_install=(
   leiningen
   ruby-install
   task
-  tmux)
+  tmux
+  cask
+  emacs)
 brew_casks_to_install=(
   dropbox
   flux
@@ -117,15 +119,20 @@ ln -sf $DOTFILES_PATH/vimrc.plugins ~/.vimrc.plugins
 touch ~/.vimrc.local
 echo "done"
 
+# emacs
+echo "Configure Emacs"
+mv ~/.emacs.d ~/.emacs.d.bak
+ln -sf $DOTFILES_PATH/emacs.d ~/.emacs.d
+echo "Run Cask"
+cask install
+pushd ~/.emacs.d
+
+
 # tmux
 echo "Link tmux configuration"
 ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
 install_gem teamocil #install teamocil
 ln -sf $DOTFILES_PATH/teamocil_layouts ~/.teamocil
-echo "done"
-
-echo "Install teamocil layouts"
-cp teamocil_layouts/*.yml ~/.teamocil
 echo "done"
 
 echo "Setup workspace"
