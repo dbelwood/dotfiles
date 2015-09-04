@@ -38,6 +38,10 @@ if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+echo "Updating brew"
+brew update
+echo "done."
+
 # Install brew formulae
 echo "Installing brew formulas"
 for app in ${brews_to_install[@]}; do
@@ -124,15 +128,13 @@ echo "Configure Emacs"
 mv ~/.emacs.d ~/.emacs.d.bak
 ln -sf $DOTFILES_PATH/emacs.d ~/.emacs.d
 echo "Run Cask"
-cask install
+cask --path ./emacs.d install
 pushd ~/.emacs.d
 
 
 # tmux
 echo "Link tmux configuration"
 ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
-install_gem teamocil #install teamocil
-ln -sf $DOTFILES_PATH/teamocil_layouts ~/.teamocil
 echo "done"
 
 echo "Setup workspace"
