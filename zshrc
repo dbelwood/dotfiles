@@ -12,6 +12,7 @@ source $ZSH/oh-my-zsh.sh
 
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
+chruby ruby-2.2.1
 
 source $root_dir/zsh_include/exports
 source $root_dir/zsh_include/exports.local

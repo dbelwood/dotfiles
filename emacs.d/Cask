@@ -31,6 +31,14 @@
 ;; Ruby
 (depends-on "ruby-end")
 (depends-on "robe")
+(depends-on "bundler")
+(depends-on "rspec-mode")
+
+;; Go
+(depends-on "company-go")
+(depends-on "go-eldoc")
+(depends-on "go-mode")
+(depends-on "golint")
 
 ;; Misc
 (depends-on "web-mode")

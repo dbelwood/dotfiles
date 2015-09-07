@@ -60,6 +60,9 @@ for app in ${brew_casks_to_install[@]}; do
 done
 echo "done"
 
+# Update existing formulae
+brew upgrade
+
 # Back yo sh*t up
 echo "Backing up rc files"
 files=(.vimrc .zshrc .gitconfig .vimrc.plugins .tmux.conf)
@@ -129,8 +132,7 @@ mv ~/.emacs.d ~/.emacs.d.bak
 ln -sf $DOTFILES_PATH/emacs.d ~/.emacs.d
 echo "Run Cask"
 cask --path ./emacs.d install
-pushd ~/.emacs.d
-
+echo "done"
 
 # tmux
 echo "Link tmux configuration"
