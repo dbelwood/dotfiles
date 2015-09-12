@@ -12,6 +12,7 @@
 (depends-on "company-go")
 (depends-on "color-theme-solarized")
 (depends-on "ag")
+(depends-on "flycheck")
 
 ;; language specific package
 ;; Clojure
