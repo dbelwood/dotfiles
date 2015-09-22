@@ -1,3 +1,4 @@
 .DS_Store
 *.local
 *.hist
+/emacs.d/ido.last~
