@@ -8,11 +8,13 @@
 (depends-on "evil-surround")
 (depends-on "smex")
 (depends-on "magit")
+(depends-on "git-blame")
 (depends-on "company")
 (depends-on "company-go")
 (depends-on "color-theme-solarized")
 (depends-on "ag")
 (depends-on "flycheck")
+(depends-on "markdown-mode")
 
 ;; language specific package
 ;; Clojure
