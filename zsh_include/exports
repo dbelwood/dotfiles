@@ -2,4 +2,6 @@ export SSH_KEY_PATH=~/.ssh/
 export PROJECT_PATH=~/Code
 export GOPATH=$PROJECT_PATH/Golang
 export PATH=$GOPATH/bin:$PATH
-export EDITOR=vim
+export EDITOR=emacs
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
