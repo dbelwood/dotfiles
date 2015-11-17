@@ -12,6 +12,8 @@
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 (require 'pallet)
+(pallet-mode t)
+
 (add-to-list 'load-path "~/.emacs.d/customizations")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -77,10 +79,10 @@
 (ido-mode t)
 
 ;; Evil mode settings
-(defvar evil-toggle-key)
-(setq evil-toggle-key "C-q")
-(evil-mode 1)
-(global-evil-surround-mode 1)
+;(defvar evil-toggle-key)
+;(setq evil-toggle-key "C-q")
+;(evil-mode 1)
+;(global-evil-surround-mode 1)
 
 ;; fix tabs
 (defun generate-tab-stops (&optional width max)
@@ -153,6 +155,9 @@
 
 (require 'org)
 (setq org-log-done t)
+
+
+(setq path-to-ctags "/usr/bin/ctags")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Language settings
