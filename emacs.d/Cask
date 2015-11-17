@@ -1,48 +1,39 @@
 (source gnu)
-(source melpa-stable)
 (source melpa)
+(source melpa-stable)
 
-(depends-on "cask")
-(depends-on "pallet")
-(depends-on "evil")
-(depends-on "evil-surround")
-(depends-on "smex")
-(depends-on "magit")
-(depends-on "git-blame")
-(depends-on "company")
-(depends-on "company-go")
-(depends-on "color-theme-solarized")
+(depends-on "ac-cider")
 (depends-on "ag")
-(depends-on "flycheck")
-(depends-on "markdown-mode")
-
-;; language specific package
-;; Clojure
+(depends-on "alchemist")
+(depends-on "bundler")
+(depends-on "cask")
+(depends-on "cider")
 (depends-on "clojure-mode")
 (depends-on "clojure-mode-extra-font-locking")
-(depends-on "cider")
-(depends-on "ac-cider")
-(depends-on "rainbow-delimiters")
-
-;; Elixir
-(depends-on "alchemist")
-(depends-on "elixir-mode")
-
-;; Haskell
-(depends-on "haskell-mode")
-
-;; Ruby
-(depends-on "ruby-end")
-(depends-on "robe")
-(depends-on "bundler")
-(depends-on "rspec-mode")
-
-;; Go
+(depends-on "color-theme-solarized")
+(depends-on "company")
 (depends-on "company-go")
+(depends-on "elixir-mode")
+(depends-on "evil")
+(depends-on "evil-surround")
+(depends-on "exec-path-from-shell")
+(depends-on "flycheck")
+(depends-on "git-blame")
+(depends-on "git-commit")
 (depends-on "go-eldoc")
 (depends-on "go-mode")
 (depends-on "golint")
-
-;; Misc
+(depends-on "haskell-mode")
+(depends-on "helm-dash")
+(depends-on "magit")
+(depends-on "magit-popup")
+(depends-on "markdown-mode")
+(depends-on "pallet")
+(depends-on "racket-mode")
+(depends-on "rainbow-delimiters")
+(depends-on "robe")
+(depends-on "rspec-mode")
+(depends-on "ruby-end")
+(depends-on "smex")
 (depends-on "web-mode")
-(depends-on "exec-path-from-shell")
+(depends-on "with-editor")
