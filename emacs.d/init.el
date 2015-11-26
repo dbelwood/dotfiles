@@ -66,24 +66,27 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Search settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'helm)
+(require 'helm-config)
+
+(helm-mode 1)
+(helm-adaptive-mode 1)
+(helm-push-mark-mode 1)
+
+(global-set-key (kbd "M-x") 'undefined)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+(projectile-global-mode)
+(setq projectile-enable-caching t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Smex settings
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; Interactive support
-(require 'ido)
-(ido-mode t)
-
-;; Evil mode settings
-;(defvar evil-toggle-key)
-;(setq evil-toggle-key "C-q")
-;(evil-mode 1)
-;(global-evil-surround-mode 1)
-
 ;; fix tabs
 (defun generate-tab-stops (&optional width max)
   "Return a tab stop sequence.  WIDTH is an optional override for the default tab stop of 2 spaces.  MAX is the max number of columns to calculate tab stops."
@@ -116,6 +119,7 @@
 (add-to-list 'load-path "/usr/local/share/git-core/contrib/emacs")
 
 (load-file "/usr/local/share/git-core/contrib/emacs/git.el")
+(add-to-list 'load-path "~/.emacs.d/custom-packages/git-emacs")
 
 (require 'git-blame)
 (require 'magit)
@@ -124,6 +128,13 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (global-set-key (kbd "C-x g") 'magit-status)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; documentation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq helm-dash-common-docsets '("Bash" "Clojure" "Docker" "Emacs Lisp" "Go" "Haskell" "PostgreSQL" "Racket" "Ruby" "Rust"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
