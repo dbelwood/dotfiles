@@ -1,5 +1,6 @@
 (require 'rainbow-delimiters)
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'clojurescript-mode-hook #'rainbow-delimiters-mode)
 
 ;; CIDER REPL
 ;(setq cider-auto-mode nil)
@@ -20,12 +21,3 @@
   (local-set-key (kbd "ESC <down>") #'cider-repl-forward-input))
 
 (add-hook 'nrepl-connected-hook 'modify-keybindings)
-
-(require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
