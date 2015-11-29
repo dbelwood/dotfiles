@@ -2,3 +2,5 @@
 *.local
 *.hist
 /emacs.d/ido.last~
+/emacs.d/helm-adaptive-history
+/emacs.d/projectile-bookmarks.eld
