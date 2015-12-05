@@ -28,6 +28,7 @@
 (global-linum-mode t) ; show line numbers
 (setq column-number-mode t) ; show current row/column in modeline
 (setq inhibit-startup-message t)
+(setq initial-scratch-message "")
 (display-time-mode t)
 
 (set-terminal-coding-system 'utf-8)
