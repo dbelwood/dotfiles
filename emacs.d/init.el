@@ -118,9 +118,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "/usr/local/share/git-core/contrib/emacs")
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/git/git.el")
 
-(load-file "/usr/local/share/git-core/contrib/emacs/git.el")
+(load-file "/usr/local/share/emacs/site-lisp/git/git.el")
 (add-to-list 'load-path "~/.emacs.d/custom-packages/git-emacs")
 
 (require 'git-blame)
