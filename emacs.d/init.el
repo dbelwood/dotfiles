@@ -17,9 +17,18 @@
 (add-to-list 'load-path "~/.emacs.d/customizations")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Base Settings
+(when (memq window-system '(mac ns))
+  (setq exec-path-from-shell-variables '("GOPATH" "RUBY_ROOT" "RUBY_OPT" "RUBY_ENGINE" "RUBY_VERSION" "GEM_ROOT" "GEM_HOME" "GEM_PATH" "PATH"))
+  (exec-path-from-shell-initialize))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; UI Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'hyper)
+
 (menu-bar-mode -1) ; hide menubar in term
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -39,7 +48,7 @@
   (windmove-default-keybindings))
 
 ;; Theme settings
-(load-theme 'solarized t)
+(load-theme 'zenburn t)
 (defun set-background-mode (frame mode)
   "Change the background of the current editor from to light or dark.  FRAME is an editor frame.  MODE should either be 'light or 'dark."
   (set-frame-parameter frame 'background-mode mode)
@@ -54,14 +63,25 @@
 		   'light 'dark)))
     (set-background-mode nil mode)))
 
-(custom-set-variables '(solarized-termcolors 256))
-(defvar solarized-default-background-mode)
-(setq solarized-default-background-mode 'dark)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("4f5bb895d88b6fe6a983e63429f154b8d939b4a8c581956493783b2515e22d6d" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "20e359ef1818a838aff271a72f0f689f5551a27704bf1c9469a5c2657b417e6c" default)))
+ '(js-indent-level 2)
+ '(js2-basic-offset 2)
+ '(js2-strict-missing-semi-warning nil)
+ '(solarized-termcolors 256))
+;;(defvar solarized-default-background-mode)
+;;(setq solarized-default-background-mode 'dark)
 
-(add-hook 'after-make-frame-functions
-	  (lambda (frame) (set-background-mode frame solarized-default-background-mode)))
+;;(add-hook 'after-make-frame-functions
+;;	  (lambda (frame) (set-background-mode frame solarized-default-background-mode)))
 
-(set-background-mode nil solarized-default-background-mode)
+;;(set-background-mode nil solarized-default-background-mode)
 
 (global-set-key (kbd "C-c t") 'switch-theme)
 
@@ -84,6 +104,10 @@
 
 (projectile-global-mode)
 (setq projectile-enable-caching t)
+(setq projectile-completion-system 'grizzl)
+
+(helm-projectile-on)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -179,7 +203,17 @@
 (load "my-clojure.el")
 (load "my-sql.el")
 (load "my-golang.el")
+(load "my-javascript.el")
+;; Racket settings
+(setq racket-racket-program "/Applications/Racket v6.3/bin/racket")
+(setq racket-raco-program "/Applications/Racket v6.3/bin/raco")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
