@@ -31,7 +31,7 @@
 (defun modify-keybindings ()
   "Re-bind history key bindings."
   (local-set-key (kbd "ESC <up>") #'cider-repl-backward-input)
-  (local-set-key (kbd "ESC <down>") #'cider-repl-forward-input))
+  (local-set-key (kbd "ESC <down>") #'cider-repl-forward-input)
   (local-set-key (kbd "ESC i") #'cider-repl-backward-input)
   (local-set-key (kbd "ESC k") #'cider-repl-forward-input))
 

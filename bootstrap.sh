@@ -34,7 +34,7 @@ install_gem() {
 }
 
 # Install brew
-if [ $(which brew | grep 'not found' | wc -l) -eq 1 ]; then
+if [ $(type brew | grep 'not found' | wc -l) -eq 1 ]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -131,7 +131,7 @@ echo "Configure Emacs"
 mv ~/.emacs.d ~/.emacs.d.bak
 ln -sf $DOTFILES_PATH/emacs.d ~/.emacs.d
 echo "Run Cask"
-cask --path ./emacs.d install
+cask --path ~/.emacs.d install
 echo "done"
 
 # tmux

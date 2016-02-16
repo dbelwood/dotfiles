@@ -3,11 +3,15 @@
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (setq enh-ruby-program (concat (getenv "RUBY_ROOT") "/bin/ruby"))
 (setq enh-ruby-deep-indent-paren nil)
+(require 'robe)
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
+(require 'rspec-mode)
+(add-hook 'enh-ruby-mode-hook 'rspec-mode)
+(require 'chruby)
 (add-hook 'enh-ruby-mode-hook 'chruby-use-corresponding)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
-(require 'rspec-mode)
+
 (setq rspec-use-rake-when-possible nil)
 (setq rspec-command-options "--format progress --fail-fast")
 
