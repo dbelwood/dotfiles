@@ -209,6 +209,10 @@
 (setq racket-raco-program "/Applications/Racket v6.3/bin/raco")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; debug settings
+;;;(setq max-specpdl-size 5)
+;;;(setq debug-on-error t)
+
 (provide 'init)
 ;;; init.el ends here
 (custom-set-faces

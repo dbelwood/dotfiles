@@ -17,3 +17,5 @@
   email = dan.belwood@gmail.com
 [github]
 	user = dbelwood
+[config]
+	editor = emacs
