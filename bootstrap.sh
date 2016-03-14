@@ -1,29 +1,6 @@
 #! /usr/bin/env bash
 
 DOTFILES_PATH=~/.dotfiles
-brews_to_install=(
-  caskroom/cask/brew-cask
-  chruby
-  go
-  elixir
-  git
-  hub
-  leiningen
-  ruby-install
-  task
-  tmux
-  cask
-  emacs)
-brew_casks_to_install=(
-  dropbox
-  flux
-  google-chrome
-  iterm2
-  macvim
-  1password
-  amethyst
-  slack
-  java)
 
 packages_to_install=(
     ruby
@@ -32,6 +9,15 @@ packages_to_install=(
     hub
     clojure
     java
+    xkeycaps
+    python
+    ansible
+    bash
+    conky
+    i3
+    emacs
+    i3status
+    slack
 )
 
 install_gem() {
@@ -44,39 +30,9 @@ install_gem() {
 
 install_package() {
     echo "Install $1"
-    sudo dnf -y install $1
+    sudo apt-get -y install $1
     echo "done"
 }
-
-# Install brew
-# if [ $(type brew | grep 'not found' | wc -l) -eq 1 ]; then
-#   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# fi
-
-# echo "Updating brew"
-# brew update
-# echo "done."
-
-# # Install brew formulae
-# echo "Installing brew formulas"
-# for app in ${brews_to_install[@]}; do
-#   if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
-#     brew install $app
-#   fi
-# done
-# echo "done"
-
-# # Install casks
-# echo "Installing brew casks"
-# for app in ${brew_casks_to_install[@]}; do
-#   if [[ $(brew cask info $app | grep 'Not installed' | wc -l) -eq 1 ]]; then
-#     brew cask install $app
-#   fi
-# done
-# echo "done"
-
-# # Update existing formulae
-# brew upgrade
 
 for app in ${packages_to_install[@]}; do
     install_package $app
@@ -107,14 +63,6 @@ touch $DOTFILES_PATH/zsh_include/init.local
 touch $DOTFILES_PATH/zsh_include/paths.local
 echo "done"
 
-
-# # Install oh-my-zsh
-# if [[ ! -e ~/.oh-my-zsh ]]; then
-#   echo "Install Oh My ZSH"
-#   curl -L http://install.ohmyz.sh | sh
-#   echo "done"
-# fi
-
 # Install bash-it
 if [[ ! -e ~/.bash_it ]]; then
     echo "Install Bash It"
@@ -127,28 +75,12 @@ echo "Link git configuration"
 ln -sf $DOTFILES_PATH/gitconfig ~/.gitconfig
 echo "done"
 
-# Bootstrap zsh
-# echo "Link zsh configuration"
-# ln -sf $DOTFILES_PATH/zshrc ~/.zshrc
-
 # Bootstrap bash
 echo "Link bash configuration"
 ln -sf $DOTFILES_PATH/bashrc ~/.bashrc
 
 source ~/.bashrc 
 echo "done"
-
-# # Ruby installation
-# ruby_ver=2.2.1
-# if [[ $(chruby | grep $ruby_ver | wc -l) -eq 0 ]]; then
-#   echo "Install ruby version $ruby_ver"
-#   ruby-install ruby $ruby_ver # Install a system ruby
-# fi
-
-# echo "Set system ruby version"
-# chruby ruby-$ruby_ver # Set system ruby
-
-# install_gem git-up # Install git-up
 
 # vim
 echo "Link vim configuration"
@@ -168,11 +100,6 @@ echo "Run Cask"
 cask --path ~/.emacs.d install
 echo "done"
 
-# # tmux
-# echo "Link tmux configuration"
-# ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
-# echo "done"
-
 echo "Setup workspace"
 mkdir -p $PROJECT_PATH
 echo "done"
@@ -188,7 +115,7 @@ mkdir -p $GOPATH/src/github.com/dbelwood
 echo "done"
 
 echo "Setup other languages"
-languages=(Clojure Elixir Ruby)
+languages=(Clojure Elixir Ruby Erlang Python)
 for language in ${languages[@]}; do
   mkdir -p $PROJECT_PATH/$language
 done
