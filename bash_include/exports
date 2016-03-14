@@ -1,0 +1,6 @@
+export SSH_KEY_PATH=~/.ssh/
+export PROJECT_PATH=~/Code
+export GOPATH=$PROJECT_PATH/Golang
+export GOBIN=$GOPATH/bin
+export PATH=$GOPATH/bin:$PATH
+export EDITOR=emacs

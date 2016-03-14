@@ -1,4 +1,4 @@
-#! /usr/bin/env zsh
+#! /usr/bin/env bash
 
 DOTFILES_PATH=~/.dotfiles
 brews_to_install=(
@@ -25,6 +25,15 @@ brew_casks_to_install=(
   slack
   java)
 
+packages_to_install=(
+    ruby
+    golang
+    elixir
+    hub
+    clojure
+    java
+)
+
 install_gem() {
   if [[ $(gem list --local $1 | grep git-up | wc -l) -eq 0 ]]; then
     echo "Install $1"
@@ -33,35 +42,45 @@ install_gem() {
   fi
 }
 
+install_package() {
+    echo "Install $1"
+    sudo dnf -y install $1
+    echo "done"
+}
+
 # Install brew
-if [ $(type brew | grep 'not found' | wc -l) -eq 1 ]; then
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
+# if [ $(type brew | grep 'not found' | wc -l) -eq 1 ]; then
+#   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# fi
 
-echo "Updating brew"
-brew update
-echo "done."
+# echo "Updating brew"
+# brew update
+# echo "done."
 
-# Install brew formulae
-echo "Installing brew formulas"
-for app in ${brews_to_install[@]}; do
-  if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
-    brew install $app
-  fi
+# # Install brew formulae
+# echo "Installing brew formulas"
+# for app in ${brews_to_install[@]}; do
+#   if [[ $(brew ls --versions $app | wc -l) -eq 0 ]]; then
+#     brew install $app
+#   fi
+# done
+# echo "done"
+
+# # Install casks
+# echo "Installing brew casks"
+# for app in ${brew_casks_to_install[@]}; do
+#   if [[ $(brew cask info $app | grep 'Not installed' | wc -l) -eq 1 ]]; then
+#     brew cask install $app
+#   fi
+# done
+# echo "done"
+
+# # Update existing formulae
+# brew upgrade
+
+for app in ${packages_to_install[@]}; do
+    install_package $app
 done
-echo "done"
-
-# Install casks
-echo "Installing brew casks"
-for app in ${brew_casks_to_install[@]}; do
-  if [[ $(brew cask info $app | grep 'Not installed' | wc -l) -eq 1 ]]; then
-    brew cask install $app
-  fi
-done
-echo "done"
-
-# Update existing formulae
-brew upgrade
 
 # Back yo sh*t up
 echo "Backing up rc files"
@@ -88,11 +107,19 @@ touch $DOTFILES_PATH/zsh_include/init.local
 touch $DOTFILES_PATH/zsh_include/paths.local
 echo "done"
 
-# Install oh-my-zsh
-if [[ ! -e ~/.oh-my-zsh ]]; then
-  echo "Install Oh My ZSH"
-  curl -L http://install.ohmyz.sh | sh
-  echo "done"
+
+# # Install oh-my-zsh
+# if [[ ! -e ~/.oh-my-zsh ]]; then
+#   echo "Install Oh My ZSH"
+#   curl -L http://install.ohmyz.sh | sh
+#   echo "done"
+# fi
+
+# Install bash-it
+if [[ ! -e ~/.bash_it ]]; then
+    echo "Install Bash It"
+    git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+    ~/.bash_it/install.sh
 fi
 
 # Set gitconfig settings
@@ -101,23 +128,27 @@ ln -sf $DOTFILES_PATH/gitconfig ~/.gitconfig
 echo "done"
 
 # Bootstrap zsh
-echo "Link zsh configuration"
-ln -sf $DOTFILES_PATH/zshrc ~/.zshrc
+# echo "Link zsh configuration"
+# ln -sf $DOTFILES_PATH/zshrc ~/.zshrc
 
-source ~/.zshrc
+# Bootstrap bash
+echo "Link bash configuration"
+ln -sf $DOTFILES_PATH/bashrc ~/.bashrc
+
+source ~/.bashrc 
 echo "done"
 
-# Ruby installation
-ruby_ver=2.2.1
-if [[ $(chruby | grep $ruby_ver | wc -l) -eq 0 ]]; then
-  echo "Install ruby version $ruby_ver"
-  ruby-install ruby $ruby_ver # Install a system ruby
-fi
+# # Ruby installation
+# ruby_ver=2.2.1
+# if [[ $(chruby | grep $ruby_ver | wc -l) -eq 0 ]]; then
+#   echo "Install ruby version $ruby_ver"
+#   ruby-install ruby $ruby_ver # Install a system ruby
+# fi
 
-echo "Set system ruby version"
-chruby ruby-$ruby_ver # Set system ruby
+# echo "Set system ruby version"
+# chruby ruby-$ruby_ver # Set system ruby
 
-install_gem git-up # Install git-up
+# install_gem git-up # Install git-up
 
 # vim
 echo "Link vim configuration"
@@ -130,20 +161,23 @@ echo "done"
 echo "Configure Emacs"
 mv ~/.emacs.d ~/.emacs.d.bak
 ln -sf $DOTFILES_PATH/emacs.d ~/.emacs.d
+echo "Install Cask"
+curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
+
 echo "Run Cask"
 cask --path ~/.emacs.d install
 echo "done"
 
-# tmux
-echo "Link tmux configuration"
-ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
-echo "done"
+# # tmux
+# echo "Link tmux configuration"
+# ln -sf $DOTFILES_PATH/tmux.conf ~/.tmux.conf
+# echo "done"
 
 echo "Setup workspace"
 mkdir -p $PROJECT_PATH
 echo "done"
 
-source ~/.zshrc
+source ~/.bashrc
 
 echo "Setup golang workspace"
 mkdir -p $GOPATH/bin

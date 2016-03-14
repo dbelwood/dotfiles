@@ -1,0 +1,4 @@
+alias vim=~/Applications/MacVim.app/Contents/MacOS/Vim
+alias be="bundle exec"
+alias up="git up"
+alias notes="emacs ~/Dropbox\ \(Trunk\ Club\)/Notes"

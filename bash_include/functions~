@@ -1,0 +1,79 @@
+# Vim opens files
+o() {
+  if (( $# == 0)); then
+    vim .
+  else
+    vim "$@"
+  fi
+}
+
+# Open Teamocil session
+code-in() {
+  tmux -u new "teamocil $@"
+}
+
+# Scratch Pad functionality
+scratch_pad() {
+  pushd ~/scratch_pad
+  files=`ls -tc`
+  file_count=(${(w)#files})
+
+  case "$1" in
+    new)
+      new_file=`date +"%Y-%m-%d:%s"`
+      touch ./${new_file}
+      o ./${new_file}
+      ;;
+    last)
+      o ./${files[$file_count]}
+      ;;
+    list)
+      for (( i=1; i<=$file_count; i++ )) do
+        echo "${i} - ${files[(f)i]}"
+      done
+      ;;
+    open)
+      index=$2
+      o ./${files[(f)index]}
+      ;;
+    *)
+      echo "Usage: $0 [new|last|list|open number]"
+      return 1
+      ;;
+  esac
+}
+
+# Log into databases from keychain login info
+start_db_session() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: $0 <host> <username>"
+    return 1
+  fi
+
+  local host=$1
+  local user=$2
+
+  local database=postgres
+  if [ $# -eq 3 ]; then
+    database=$3
+  fi
+
+  # Get password
+  local password=$(security find-generic-password -s $host -a $user -w)
+
+  local connect_string="postgresql://${user}:${password}@${host}/${database}"
+
+  pgcli $connect_string
+}
+
+agenda() {
+  local start='7am'
+  local end="$(date -v23H -v59M -v59S -v+4d -j +"%Y-%m-%d 00:00")"
+  while :; do
+    clear &&
+    gcalcli agenda ${start} ${end}
+    sleep 120;
+  done
+}
+
+# vim: set filetype=sh :
