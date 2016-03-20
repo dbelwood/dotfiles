@@ -6,7 +6,7 @@ packages_to_install=(
     ruby
     golang
     elixir
-    hub
+    git-hub
     clojure
     java
     xkeycaps
@@ -56,11 +56,11 @@ done
 echo "done."
 
 echo "Create local copies"
-touch $DOTFILES_PATH/zsh_include/aliases.local
-touch $DOTFILES_PATH/zsh_include/exports.local
-touch $DOTFILES_PATH/zsh_include/functions.local
-touch $DOTFILES_PATH/zsh_include/init.local
-touch $DOTFILES_PATH/zsh_include/paths.local
+touch $DOTFILES_PATH/bash_include/aliases.local
+touch $DOTFILES_PATH/bash_include/exports.local
+touch $DOTFILES_PATH/bash_include/functions.local
+touch $DOTFILES_PATH/bash_include/init.local
+touch $DOTFILES_PATH/bash_include/paths.local
 echo "done"
 
 # Install bash-it
