@@ -17,7 +17,8 @@ packages_to_install=(
     i3
     emacs
     i3status
-    slack
+    slack-desktop
+    terminator
 )
 
 install_gem() {
