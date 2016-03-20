@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-export BASH_IT="/home/danb/.bash_it"
+export BASH_IT="${HOME}/.bash_it"
 root_dir=~/.dotfiles
 
 # Load paths
