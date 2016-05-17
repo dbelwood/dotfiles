@@ -3,7 +3,7 @@
 [color]
   ui = true
 [core]
-  editor = vim
+	editor = emacs
 [git-up "bundler"]
   check = false
 [help]
@@ -17,5 +17,9 @@
   email = dan.belwood@gmail.com
 [github]
 	user = dbelwood
+	password = Pkp1852-
+	oauth-token = 33b5c0c39a0e0cc354e0874e887636402241c830
 [config]
 	editor = emacs
+[url "https://e93cb5a5f7a519292364d5829afff688d1950b54:x-oauth-basic@github.com/"]
+	insteadOf = https://github.com/

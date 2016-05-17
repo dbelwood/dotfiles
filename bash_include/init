@@ -1,4 +1,5 @@
 # Init hub
 eval "$(hub alias -s)"
 
-chruby ruby-2.2.1 # Set system ruby
+source /usr/local/share/chruby/chruby.sh
+chruby ruby

@@ -19,7 +19,7 @@
 
 ;; Base Settings
 (when (memq window-system '(x mac ns))
-  (setq exec-path-from-shell-variables '("GOPATH" "RUBY_ROOT" "RUBY_OPT" "RUBY_ENGINE" "RUBY_VERSION" "GEM_ROOT" "GEM_HOME" "GEM_PATH" "PATH"))
+  (setq exec-path-from-shell-variables '("GOPATH" "RUBY_ROOT" "RUBY_OPT" "RUBY_ENGINE" "RUBY_VERSION" "GEM_ROOT" "GEM_HOME" "GEM_PATH" "PATH" "PYENV_VERSION"))
   (exec-path-from-shell-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,6 +74,8 @@
  '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(js2-strict-missing-semi-warning nil)
+ '(org-export-backends (quote (ascii html icalendar latex md)))
+ '(safe-local-variable-values (quote ((go-test-args . "-timeout 30s"))))
  '(solarized-termcolors 256))
 ;;(defvar solarized-default-background-mode)
 ;;(setq solarized-default-background-mode 'dark)
@@ -160,7 +162,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; documentation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq helm-dash-common-docsets '("Bash" "Clojure" "Docker" "Emacs Lisp" "Go" "Haskell" "PostgreSQL" "Racket" "Ruby" "Rust"))
+(setq helm-dash-common-docsets '("Bash" "Clojure" "Docker" "Emacs Lisp" "Go" "Haskell" "PostgreSQL" "Python 2" "Racket" "Ruby" "Rust"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -208,9 +210,12 @@
 ;; Racket settings
 (setq racket-racket-program "/Applications/Racket v6.3/bin/racket")
 (setq racket-raco-program "/Applications/Racket v6.3/bin/raco")
+
+;; Python settings
+(setq venv-location "~/.virtualenvs")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; debug settings
+;;; Debug settings
 ;;;(setq max-specpdl-size 5)
 ;;;(setq debug-on-error t)
 

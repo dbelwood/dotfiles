@@ -12,8 +12,3 @@
            "go build -v && go test -v && go vet"))
   (local set-key (kbd "M-.") 'godef-jump))
 (add-hook 'go-mode-hook 'my-go-mode-hook)
-
-(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
-
-(require 'go-flymake)
-(require 'go-flycheck)
