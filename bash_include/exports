@@ -1,7 +1,9 @@
 export SSH_KEY_PATH=~/.ssh/
 export PROJECT_PATH=~/Code
+export GOROOT=/usr/lib/go
 export GOPATH=$PROJECT_PATH/Golang
 export GOBIN=$GOPATH/bin
+export PATH=$GOROOT/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export EDITOR=emacs
 export GITHUB_TOKEN=e93cb5a5f7a519292364d5829afff688d1950b54

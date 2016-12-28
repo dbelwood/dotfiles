@@ -1,2 +1,2 @@
-export PATH="/usr/local/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/opt:/usr/bin:/bin:/usr/sbin:/sbin:~/bin:$GOPATH/bin:$HOME/.cask/bin:$PATH:$HOME/Code/Golang/bin"
+export PATH="/usr/local/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/opt:/usr/bin:/bin:/usr/sbin:/sbin:~/bin:$GOPATH/bin:$HOME/.cask/bin:$HOME/Code/Golang/bin:/home/danb/.mix:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"

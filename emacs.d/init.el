@@ -9,18 +9,25 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+(setq load-prefer-newer t)
 
 (add-to-list 'load-path "~/.emacs.d/customizations")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Base Settings
-(when (memq window-system '(x mac ns))
-  (setq exec-path-from-shell-variables '("GOPATH" "RUBY_ROOT" "RUBY_OPT" "RUBY_ENGINE" "RUBY_VERSION" "GEM_ROOT" "GEM_HOME" "GEM_PATH" "PATH" "PYENV_VERSION"))
-  (exec-path-from-shell-initialize))
+(setq exec-path-from-shell-variables '("GOPATH" "GOROOT" "RUBY_ROOT" "RUBY_OPT" "RUBY_ENGINE" "RUBY_VERSION" "GEM_ROOT" "GEM_HOME" "GEM_PATH" "PATH" "PYENV_VERSION"))
+(exec-path-from-shell-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; UI Settings
@@ -29,7 +36,7 @@
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'hyper)
 
-(menu-bar-mode -1) ; hide menubar in term
+(menu-bar-mode 1)
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)
@@ -68,6 +75,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(comint-buffer-maximum-size 20000)
+ '(comint-completion-add-suffix t)
+ '(comint-completion-addsuffix t)
+ '(comint-completion-auto-list t)
+ '(comint-get-old-input (lambda nil "") t)
+ '(comint-input-ignore-dups t)
+ '(comint-input-ignoredups t)
+ '(comint-input-ring-size 5000)
+ '(comint-move-point-for-output nil)
+ '(comint-prompt-read-only nil)
+ '(comint-scroll-show-maximum-output t)
+ '(comint-scroll-to-bottom-on-input t)
  '(custom-safe-themes
    (quote
     ("4f5bb895d88b6fe6a983e63429f154b8d939b4a8c581956493783b2515e22d6d" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "20e359ef1818a838aff271a72f0f689f5551a27704bf1c9469a5c2657b417e6c" default)))
@@ -75,8 +94,13 @@
  '(js2-basic-offset 2)
  '(js2-strict-missing-semi-warning nil)
  '(org-export-backends (quote (ascii html icalendar latex md)))
+ '(package-selected-packages
+   (quote
+    (jinja2-mode multi-term zenburn-theme yaml-mode web-mode virtualenvwrapper sudo-edit sql-indent smex smartparens scss-mode ruby-end rspec-mode robe restclient rainbow-delimiters racket-mode pyvenv python-mode pylint pyenv-mode-auto protobuf-mode paredit pallet ox-gfm nginx-mode markdown-mode+ malabar-mode magit lua-mode less-css-mode jsx-mode js2-mode jdee helm-projectile helm-dash helm-company helm-ag haskell-mode handlebars-mode haml-mode grizzl gotest golint go-eldoc gist flymake-python-pyflakes flycheck-elixir exec-path-from-shell evil-surround elein dockerfile-mode docker ctags csv-mode cql-mode company-inf-ruby company-go color-theme-solarized coffee-mode clojure-mode-extra-font-locking chruby bundler angular-mode ample-theme alect-themes alchemist ag ac-cider)))
+ '(protect-buffer-bury-p nil)
  '(safe-local-variable-values (quote ((go-test-args . "-timeout 30s"))))
- '(solarized-termcolors 256))
+ '(solarized-termcolors 256)
+ '(tramp-default-method "ssh"))
 ;;(defvar solarized-default-background-mode)
 ;;(setq solarized-default-background-mode 'dark)
 
@@ -104,7 +128,7 @@
 (global-set-key (kbd "M-x") 'undefined)
 (global-set-key (kbd "M-x") 'helm-M-x)
 
-(projectile-global-mode)
+(projectile-mode)
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'grizzl)
 
@@ -139,15 +163,16 @@
 
 ;; (setq interprogram-cut-function 'paste-to-osx)
 ;; (setq interprogram-paste-function 'copy-from-osx)
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "/usr/share/emacs24/site-lisp/git/git.el")
+(add-to-list 'load-path "/usr/share/emacs25/site-lisp/git/git.el")
+(add-to-list 'load-path "/usr/share/emacs25/site-lisp/git/git-blame.el")
 
-(load-file "/usr/share/emacs24/site-lisp/git/git.el")
+(load-file "/usr/share/emacs25/site-lisp/git/git.el")
 (add-to-list 'load-path "~/.emacs.d/custom-packages/git-emacs")
 
 (require 'git-blame)
@@ -177,6 +202,9 @@
       `((".*" ,auto-save-background-directory  t)))
 
 (require 'ag)
+
+(setq bell-volume 0)
+(setq visible-bell 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -193,6 +221,18 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Whitespace
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(whitespace-newline ((t (:foreground "gray50" :background nil))))
+ '(whitespace-space ((t (:foreground "gray50" :background nil)))))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (require 'org)
 (setq org-log-done t)
 
@@ -207,12 +247,18 @@
 (load "my-sql.el")
 (load "my-golang.el")
 (load "my-javascript.el")
+(load "my-elixir.el")
+(load "my-shell.el")
+(load "my-org.el")
+
 ;; Racket settings
-(setq racket-racket-program "/Applications/Racket v6.3/bin/racket")
-(setq racket-raco-program "/Applications/Racket v6.3/bin/raco")
+;; (setq racket-racket-program "/Applications/Racket v6.3/bin/racket")
+;; (setq racket-raco-program "/Applications/Racket v6.3/bin/raco")
 
 ;; Python settings
-(setq venv-location "~/.virtualenvs")
+(require 'pyenv-mode-auto)
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Debug settings
@@ -221,9 +267,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
