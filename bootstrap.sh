@@ -13,12 +13,9 @@ packages_to_install=(
     python
     ansible
     bash
-    conky
-    i3
-    emacs
-    i3status
+    emacs25
+    git-el
     slack-desktop
-    terminator
 )
 
 install_gem() {
@@ -80,7 +77,7 @@ echo "done"
 echo "Link bash configuration"
 ln -sf $DOTFILES_PATH/bashrc ~/.bashrc
 
-source ~/.bashrc 
+source ~/.bashrc
 echo "done"
 
 # vim

@@ -51,6 +51,9 @@
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
+(require 'disable-mouse)
+(global-disable-mouse-mode)
+
 (when (fboundp 'windmove-default-keybindings) ; Enable S-[up,down,left,right] window movement
   (windmove-default-keybindings))
 
@@ -96,7 +99,7 @@
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(package-selected-packages
    (quote
-    (jinja2-mode multi-term zenburn-theme yaml-mode web-mode virtualenvwrapper sudo-edit sql-indent smex smartparens scss-mode ruby-end rspec-mode robe restclient rainbow-delimiters racket-mode pyvenv python-mode pylint pyenv-mode-auto protobuf-mode paredit pallet ox-gfm nginx-mode markdown-mode+ malabar-mode magit lua-mode less-css-mode jsx-mode js2-mode jdee helm-projectile helm-dash helm-company helm-ag haskell-mode handlebars-mode haml-mode grizzl gotest golint go-eldoc gist flymake-python-pyflakes flycheck-elixir exec-path-from-shell evil-surround elein dockerfile-mode docker ctags csv-mode cql-mode company-inf-ruby company-go color-theme-solarized coffee-mode clojure-mode-extra-font-locking chruby bundler angular-mode ample-theme alect-themes alchemist ag ac-cider)))
+    (disable-mouse pytest jinja2-mode multi-term zenburn-theme yaml-mode web-mode virtualenvwrapper sudo-edit sql-indent smex smartparens scss-mode ruby-end rspec-mode robe restclient rainbow-delimiters racket-mode pyvenv python-mode pylint pyenv-mode-auto protobuf-mode paredit pallet ox-gfm nginx-mode markdown-mode+ malabar-mode magit lua-mode less-css-mode jsx-mode js2-mode jdee helm-projectile helm-dash helm-company helm-ag haskell-mode handlebars-mode haml-mode grizzl gotest golint go-eldoc gist flymake-python-pyflakes flycheck-elixir exec-path-from-shell evil-surround elein dockerfile-mode docker ctags csv-mode cql-mode company-inf-ruby company-go color-theme-solarized coffee-mode clojure-mode-extra-font-locking chruby bundler angular-mode ample-theme alect-themes alchemist ag ac-cider)))
  '(protect-buffer-bury-p nil)
  '(safe-local-variable-values (quote ((go-test-args . "-timeout 30s"))))
  '(solarized-termcolors 256)
@@ -201,8 +204,6 @@
 (setq auto-save-file-name-transforms
       `((".*" ,auto-save-background-directory  t)))
 
-(require 'ag)
-
 (setq bell-volume 0)
 (setq visible-bell 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -259,6 +260,7 @@
 (require 'pyenv-mode-auto)
 (require 'virtualenvwrapper)
 (venv-initialize-interactive-shells)
+(require 'pytest)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Debug settings

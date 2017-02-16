@@ -17,7 +17,7 @@
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (require 'rspec-mode)
 (add-hook 'enh-ruby-mode-hook 'rspec-mode)
-(require 'chruby)
+;; (require 'chruby)
 (add-hook 'enh-ruby-mode-hook 'chruby-use-corresponding)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
