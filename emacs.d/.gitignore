@@ -5,5 +5,5 @@ ido.last*
 smex-items*
 flycheck_*
 eshell
-emacs.d/network-security.data
-emacs.d/backups
+network-security.data
+backups/
