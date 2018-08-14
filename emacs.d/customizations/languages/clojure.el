@@ -1,4 +1,4 @@
-;;; my-clojure --- Clojure(Script) Intialization
+;;; clojure --- Clojure(Script) Intialization
 
 ;;; Commentary:
 ;;; clj/cjlx/cljs settings
@@ -37,5 +37,5 @@
 
 (add-hook 'nrepl-connected-hook 'modify-keybindings)
 
-(provide 'my-clojure)
-;;; my-clojure.el ends here
+(provide 'clojure)
+;;; clojure.el ends here

@@ -1,15 +1,16 @@
-(setq sql-connection-alist
-      '((local (sql-product 'postgres)
-               (sql-port 5432)
-               (sql-server "trunkclub.dev")
-               (sql-user "trunkclub")
-               (sql-database "postgres"))))
+;;; sql --- SQL settings
 
-(defun tc/local-database ()
+;;; Commentary:
+;;; .sql/.sqlx settings
+
+;;; Code:
+
+(setq sql-connection-alist '())
+(defun dbb/local-database ()
   (interactive)
-  (tc/sql-connect 'postgres 'local))
+  (dbb/sql-connect 'postgres 'local))
 
-(defun tc/sql-connect (product connection)
+(defun dbb/sql-connect (product connection)
   (setq sql-product product)
   (sql-connect connection))
 
@@ -21,3 +22,6 @@
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
+
+(provide 'sql)
+;;; sql.el ends here

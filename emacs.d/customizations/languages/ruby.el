@@ -1,3 +1,10 @@
+;;; ruby --- Ruby initialization
+
+;;; Commentary:
+;;; .rb settings
+
+;;; Code:
+
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
@@ -21,3 +28,5 @@
     ad-do-it))
 
 (ad-activate 'rspec-compile)
+(provide 'ruby)
+;;; ruby.el ends here

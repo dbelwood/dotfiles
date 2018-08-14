@@ -1,4 +1,4 @@
-;;; my-javascript --- Javascript/React settings
+;;; javascript --- Javascript/React settings
 
 ;;; Commentary:
 ; Ongoing set of tweaks I collect for JS/React
@@ -32,5 +32,5 @@
 
 (setq web-mode-enable-css-colorization t)
 
-(provide 'my-javascript)
-;;; my-javascript.el ends here
+(provide 'javascript)
+;;; javascript.el ends here
