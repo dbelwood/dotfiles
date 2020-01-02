@@ -1,0 +1,22 @@
+* Items to do
+** Emacs Config
+*** Base
+**** TODO Research and configure window movement package - not a priority
+**** DONE use-package for themes
+     CLOSED: [2020-01-02 Thu 14:42]
+**** TODO use-package for helm
+**** TODO use-package for projectile
+**** TODO tab stops?
+**** TODO use-package for copy-paste
+**** TODO use-package for magit
+**** configure emacs auto-save settings
+**** TODO use-package for company-mode
+**** TODO flycheck syntax checking?
+**** Look at ibuffer
+
+*** Clojure
+**** rainbow-delimiters
+**** cider setup
+** Remove vimness
+** Remove tmux
+** Zsh improvements?
