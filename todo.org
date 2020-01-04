@@ -1,0 +1,30 @@
+* Items to do
+** Emacs Config
+*** Base
+**** DONE Research and configure window movement package - not a priority
+     CLOSED: [2020-01-03 Fri 14:56]
+**** DONE use-package for themes
+     CLOSED: [2020-01-02 Thu 14:42]
+**** DONE use-package for helm
+     CLOSED: [2020-01-02 Thu 17:53]
+**** DONE use-package for projectile
+     CLOSED: [2020-01-03 Fri 14:56]
+**** DONE tab stops?
+     CLOSED: [2020-01-02 Thu 17:53]
+**** TODO use-package for copy-paste
+**** DONE use-package for magit
+     CLOSED: [2020-01-02 Thu 17:53]
+**** DONE configure emacs auto-save settings
+     CLOSED: [2020-01-02 Thu 17:53]
+**** DONE use-package for company-mode
+     CLOSED: [2020-01-03 Fri 14:56]
+**** DONE flycheck syntax checking?
+     CLOSED: [2020-01-03 Fri 14:56]
+**** Look at ibuffer
+
+*** Clojure
+**** TODO rainbow-delimiters
+**** TODO cider setup
+** Remove vimness
+** Remove tmux
+** Zsh improvements?

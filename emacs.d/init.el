@@ -6,123 +6,98 @@
 
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Management
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
-(cask-initialize)
-(require 'pallet)
-(pallet-mode t)
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(add-to-list 'load-path "~/.emacs.d/customizations")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
-;; Base Settings
-(when (memq window-system '(mac ns))
-  (setq exec-path-from-shell-variables '("GOPATH" "RUBY_ROOT" "RUBY_OPT" "RUBY_ENGINE" "RUBY_VERSION" "GEM_ROOT" "GEM_HOME" "GEM_PATH" "PATH"))
+
+;; Access important environment variables, i.e. $PATH
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :config
+  (exec-path-from-shell-copy-env "JAVA_HOME")
   (exec-path-from-shell-initialize))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; UI Settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setq mac-option-modifier 'meta)
-(setq mac-command-modifier 'hyper)
-
-(menu-bar-mode -1) ; hide menubar in term
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
-(when (fboundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))
+(setq inhibit-splash-screen t
+      initial-scratch-message nil)
 (global-linum-mode t) ; show line numbers
-(setq column-number-mode t) ; show current row/column in modeline
-(setq inhibit-startup-message t)
-(setq initial-scratch-message "")
+(column-number-mode t) ; show current row/column in modeline
 (display-time-mode t)
 
+;; Map OSX keys correctly
+(setq mac-option-modifier 'meta
+      mac-command-modifier 'hyper)
+
+(tool-bar-mode -1) ; Turn off the toolbar if the function is defined
+(scroll-bar-mode -1) ; Turn off the scroll bar if the function is defined
+(menu-bar-mode -1)
+
+;; revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
+
+(setq make-backup-files nil) ;; Don't save backups
+
+;; Encoding
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(when (fboundp 'windmove-default-keybindings) ; Enable S-[up,down,left,right] window movement
-  (windmove-default-keybindings))
-
 ;; Theme settings
-(load-theme 'zenburn t)
-(defun set-background-mode (frame mode)
-  "Change the background of the current editor from to light or dark.  FRAME is an editor frame.  MODE should either be 'light or 'dark."
-  (set-frame-parameter frame 'background-mode mode)
-  (when (not (display-graphic-p frame))
-    (set-terminal-parameter (frame-terminal frame) 'background-mode mode))
-  (enable-theme 'solarized))
+(use-package spacemacs-common
+  :ensure spacemacs-theme
+  :pin melpa
+  :config
+  (load-theme 'spacemacs-dark t))
 
-(defun switch-theme ()
-  "Switch the theme to light or dark solarized."
-  (interactive)
-  (let ((mode (if (eq (frame-parameter nil 'background-mode) 'dark)
-		   'light 'dark)))
-    (set-background-mode nil mode)))
+;; Font
+(set-frame-font "Hack 16" nil t)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("4f5bb895d88b6fe6a983e63429f154b8d939b4a8c581956493783b2515e22d6d" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "20e359ef1818a838aff271a72f0f689f5551a27704bf1c9469a5c2657b417e6c" default)))
- '(js-indent-level 2)
- '(js2-basic-offset 2)
- '(js2-strict-missing-semi-warning nil)
- '(solarized-termcolors 256))
-;;(defvar solarized-default-background-mode)
-;;(setq solarized-default-background-mode 'dark)
+(use-package ace-window
+  :ensure t
+  :bind
+  ("M-o" . ace-window))
 
-;;(add-hook 'after-make-frame-functions
-;;	  (lambda (frame) (set-background-mode frame solarized-default-background-mode)))
-
-;;(set-background-mode nil solarized-default-background-mode)
-
-(global-set-key (kbd "C-c t") 'switch-theme)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~/.emacs.d/custom-packages/helm")
-(require 'helm)
-(require 'helm-config)
+(use-package helm
+  :ensure t
+  :config
+  (helm-mode 1)
+  (helm-adaptive-mode 1)
+  :bind
+  ("M-x" . helm-M-x))
 
-(helm-mode 1)
-(helm-adaptive-mode 1)
-(helm-push-mark-mode 1)
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-enable-caching t)
+  (setq projectile-completion-system 'grizzl)
+  :config
+  (projectile-mode))
 
-(global-set-key (kbd "M-x") 'undefined)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
 
-(projectile-global-mode)
-(setq projectile-enable-caching t)
-(setq projectile-completion-system 'grizzl)
 
-(helm-projectile-on)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; fix tabs
-(defun generate-tab-stops (&optional width max)
-  "Return a tab stop sequence.  WIDTH is an optional override for the default tab stop of 2 spaces.  MAX is the max number of columns to calculate tab stops."
-  (let* ((max-column (or max 100))
-	 (tab-width (or width 2))
-	 (count (/ max-column tab-width)))
-    (number-sequence tab-width (* tab-width count) tab-width)))
-
-(setq tab-stop-list (generate-tab-stops))
-(setq-default indent-tabs-mode nil)
+(setq tab-width 2
+      indent-tabs-mode nil)
 
 (defun copy-from-osx ()
   "Copy from the system clipboard."
@@ -137,84 +112,99 @@
 
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/git/git.el")
+(use-package magit
+  :ensure t
+  :pin melpa-stable
+  :bind
+  ("C-x g" . magit-status))
 
-(load-file "/usr/local/share/emacs/site-lisp/git/git.el")
-(add-to-list 'load-path "~/.emacs.d/custom-packages/git-emacs")
-
-(require 'git-blame)
-(require 'magit)
-
-(defvar magit-last-seen-setup-instructions)
-(setq magit-last-seen-setup-instructions "1.4.0")
-
-(global-set-key (kbd "C-x g") 'magit-status)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; documentation
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq helm-dash-common-docsets '("Bash" "Clojure" "Docker" "Emacs Lisp" "Go" "Haskell" "PostgreSQL" "Racket" "Ruby" "Rust"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Misc
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar auto-save-background-directory)
-(setq auto-save-background-directory "~/.emacs-auto-save") ; store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,auto-save-background-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,auto-save-background-directory  t)))
-
-(require 'ag)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto Complete config
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'company)
-(global-company-mode t)
-(add-hook 'after-init-hook 'global-company-mode) ;; Enable auto completion globally
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package company
+  :ensure t
+  :config
+  (global-company-mode t)
+  :hook
+  (after-init . global-company-mode) ;; Enable auto completion globally
+  )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Syntax checking
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'after-init-hook #'global-flycheck-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package flycheck
+  :ensure t
+  :hook
+  (after-init . global-flycheck-mode))
 
-(require 'org)
-(setq org-log-done t)
+(use-package org
+  :ensure t
+  :init
+  (setq org-log-done t))
 
+;; Lisp-ish settings
+(use-package rainbow-delimiters
+  :ensure t)
 
-(setq path-to-ctags "/usr/bin/ctags")
+(use-package rainbow-mode
+  :ensure t
+  :hook
+  (prog-mode . rainbow-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Language settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "my-ruby.el")
-(load "my-clojure.el")
-(load "my-sql.el")
-(load "my-golang.el")
-(load "my-javascript.el")
-;; Racket settings
-(setq racket-racket-program "/Applications/Racket v6.3/bin/racket")
-(setq racket-raco-program "/Applications/Racket v6.3/bin/raco")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package paredit
+  :ensure t)
 
-;;; debug settings
-;;;(setq max-specpdl-size 5)
-;;;(setq debug-on-error t)
+(use-package lisp-mode
+  :mode ("\\.el\\'" . lisp-mode)
+  :hook
+  ((lisp-mode . paredit-mode)
+   (lisp-mode . rainbow-delimiters-mode)
+   (lisp-mode . subword-mode)
+   (lisp-mode . eldoc-mode)
+   (lisp-mode . show-paren-mode)))
+
+(use-package clojure-mode
+  :ensure t
+  :mode (("\\.clj\\'" . clojure-mode)
+         ("\\.edn\\'" . clojure-mode)
+         ("\\.cljs\\'" . clojure-mode)
+         ("\\.cljc\\'" . clojure-mode))
+  :hook
+  ((clojure-mode . paredit-mode)
+   (clojure-mode . rainbow-delimiters-mode)
+   (clojure-mode . subword-mode)
+   (clojure-mode . eldoc-mode)
+   (clojurescript-mode . paredit-mode)
+   (clojurescript-mode . rainbow-delimiters-mode)
+   (clojurescript-mode . subword-mode)
+   (clojurescript-mode . eldoc-mode)
+   (clojurescript-mode . show-paren-mode)))
+
+(use-package cider
+  :ensure t
+  :config
+  (setq nrepl-log-messages t)
+  :hook
+  ((cider-mode . eldoc-mode)
+   (cider-repl-mode . eldoc-mode)
+   (cider-repl-mode . paredit-mode)
+   (cider-repl-mode . rainbow-delimiters-mode)
+   (cider-repl-mode . show-paren-mode)))
+
+(use-package multi-term
+  :ensure t
+  :config
+  (setq multi-term-program "/bin/zsh"))
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-completion-style (quote emacs))
+ '(package-selected-packages
+   (quote
+    (multi-term spacemacs-light use-package spacemacs-theme rainbow-mode rainbow-delimiters paredit magit helm-projectile flycheck exec-path-from-shell cider auto-package-update ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
