@@ -1,4 +1,6 @@
 # Init hub
 eval "$(hub alias -s)"
 
-chruby ruby-2.2.1 # Set system ruby
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
