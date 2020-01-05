@@ -23,6 +23,8 @@
   (setq auto-package-update-hide-results t)
   (auto-package-update-maybe))
 
+(setq custom-file (concat user-emacs-directory ".custom.el"))
+
 
 ;; Access important environment variables, i.e. $PATH
 (use-package exec-path-from-shell
@@ -67,14 +69,24 @@
 ;; Font
 (set-frame-font "Hack 16" nil t)
 
+(use-package uniquify
+  :init
+  (setq uniquify-buffer-name-style 'forward))
+
 (use-package ace-window
   :ensure t
   :bind
   ("M-o" . ace-window))
 
+(use-package ibuffer
+  :bind
+  ("C-x C-b" . ibuffer))
+
 ;; Search settings
 (use-package helm
   :ensure t
+  :init
+  (setq helm-completion-style 'emacs)
   :config
   (helm-mode 1)
   (helm-adaptive-mode 1)
@@ -189,6 +201,45 @@
    (cider-repl-mode . rainbow-delimiters-mode)
    (cider-repl-mode . show-paren-mode)))
 
+;; Python settings
+(use-package python-mode
+  :ensure t
+  :mode (("\\.py\\'" . python-mode)))
+
+(use-package pyvenv
+  :ensure t)
+
+(use-package pipenv
+  :ensure t
+  :init
+  (setq
+   pipenv-projectile-after-switch-function
+   #'pipenv-projectile-after-switch-extended)
+  :hook
+  (python-mode . pipenv-mode))
+
+(use-package py-autopep8
+  :ensure t
+  :hook
+  (elpy-mode . py-autopep8-enable-on-save))
+
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  :hook
+  ((elpy-mode . flycheck-mode)))
+
+(use-package web-mode
+  :ensure t
+  :mode (("\\.j2\\'" . web-mode)
+         ("\\.html\\'" . web-mode))
+  :init
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
+
 (use-package multi-term
   :ensure t
   :config
@@ -196,18 +247,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-completion-style (quote emacs))
- '(package-selected-packages
-   (quote
-    (multi-term spacemacs-light use-package spacemacs-theme rainbow-mode rainbow-delimiters paredit magit helm-projectile flycheck exec-path-from-shell cider auto-package-update ace-window))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
