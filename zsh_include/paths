@@ -1,2 +1,2 @@
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt:/usr/bin:/bin:/usr/sbin:/sbin:~/bin:$GOPATH/bin:$HOME/.cask/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin:$GOPATH/bin:$HOME/.cask/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"

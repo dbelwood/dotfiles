@@ -2,7 +2,6 @@
 
 DOTFILES_PATH=~/.dotfiles
 brews_to_install=(
-  caskroom/cask/brew-cask
   chruby
   go
   elixir
@@ -10,19 +9,12 @@ brews_to_install=(
   hub
   leiningen
   ruby-install
-  task
-  tmux
   cask
   emacs)
 brew_casks_to_install=(
   dropbox
-  flux
   google-chrome
   iterm2
-  macvim
-  1password
-  amethyst
-  slack
   java)
 
 install_gem() {
@@ -49,6 +41,7 @@ for app in ${brews_to_install[@]}; do
     brew install $app
   fi
 done
+brew tap caskroom/cask
 echo "done"
 
 # Install casks
