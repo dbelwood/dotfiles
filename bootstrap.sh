@@ -2,20 +2,21 @@
 
 DOTFILES_PATH=~/.dotfiles
 brews_to_install=(
-  chruby
+  caskroom/cask/brew-cask
   go
   elixir
   git
   hub
   leiningen
   ruby-install
-  cask
   emacs)
 brew_casks_to_install=(
   dropbox
   google-chrome
   iterm2
-  java)
+  java
+  slack
+)
 
 install_gem() {
   if [[ $(gem list --local $1 | grep git-up | wc -l) -eq 0 ]]; then
@@ -96,7 +97,9 @@ echo "done"
 # Bootstrap zsh
 echo "Link zsh configuration"
 ln -sf $DOTFILES_PATH/zshrc ~/.zshrc
+ln -sf $DOTFILES_PATH/zshenv ~/.zshenv
 
+source ~/.zshenv
 source ~/.zshrc
 echo "done"
 

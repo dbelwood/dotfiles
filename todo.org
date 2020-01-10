@@ -25,6 +25,9 @@
 *** Clojure
 **** TODO rainbow-delimiters
 **** TODO cider setup
-** Remove vimness
-** Remove tmux
+** DONE Remove vimness
+   CLOSED: [2020-01-03 Fri 14:59]
+** DONE Remove tmux
+   CLOSED: [2020-01-03 Fri 14:59]
 ** Zsh improvements?
+** Package installation improvements

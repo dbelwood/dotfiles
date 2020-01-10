@@ -82,6 +82,17 @@
   :bind
   ("C-x C-b" . ibuffer))
 
+(use-package diminish
+  :ensure t
+  :demand t)
+
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode +1)
+  (setq which-key-idle-delay 0.4
+        which-key-idle-secondary-delay 0.4))
+
 ;; Search settings
 (use-package helm
   :ensure t
@@ -150,7 +161,13 @@
 (use-package org
   :ensure t
   :init
-  (setq org-log-done t))
+  (setq org-log-done t
+	org-src-fontify-natively t
+	org-src-tab-acts-natively t
+	org-confirm-babel-evaluate nil
+	org-edit-src-content-indentation 0)
+  :config
+  (require 'ob-clojure))
 
 ;; Lisp-ish settings
 (use-package rainbow-delimiters
@@ -240,10 +257,17 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
 
+(use-package restclient
+  :ensure t)
+
 (use-package multi-term
   :ensure t
   :config
   (setq multi-term-program "/bin/zsh"))
+
+(use-package markdown-mode :hook (markdown-mode . visual-line-mode))
+
+(use-package json-mode)
 
 (provide 'init)
 ;;; init.el ends here
