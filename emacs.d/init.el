@@ -87,6 +87,7 @@
   :demand t)
 
 (use-package which-key
+  :ensure t
   :diminish which-key-mode
   :config
   (which-key-mode +1)
@@ -267,7 +268,8 @@
 
 (use-package markdown-mode :hook (markdown-mode . visual-line-mode))
 
-(use-package json-mode)
+(use-package json-mode
+  :ensure t)
 
 (provide 'init)
 ;;; init.el ends here
